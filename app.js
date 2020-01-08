@@ -47,7 +47,7 @@ passport.deserializeUser(async (id, callback) => {
   }
 });
 
-app.use(flash());
+app.use(flash());  // para gestionar errores
 passport.use(
   new LocalStrategy(
     {
@@ -59,7 +59,7 @@ passport.use(
         const user = await User.findOne({ username });
 
         if (!user)
-          return next(null, false, { message: "El usuario no existe" });
+          return next(null, false, { message: "El usuario no existe" });  // el primer parámetro sería el error si hubiese, el segundo el usuario, el último el mensaje
 
         if (!bcrypt.compareSync(password, user.password))
           return next(null, false, { message: "La contraseña no es correcta" });
